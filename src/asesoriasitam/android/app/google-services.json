@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "433616123405",
+    "project_id": "asesoriasitam",
+    "storage_bucket": "asesoriasitam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433616123405:android:5990bdc1d6384131c3c744",
+        "android_client_info": {
+          "package_name": "com.example.asesoriasitam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "433616123405-fpbrjgopomi3eo1is4tr8suh5ik1ari5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANkDh-LVt1xrsRYnXKLJQ4Y781j3NCr94"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "433616123405-fpbrjgopomi3eo1is4tr8suh5ik1ari5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "433616123405-j21j6rsrtmovvuof7hk0m67s6jbvqn7g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.asesoriasitam"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
