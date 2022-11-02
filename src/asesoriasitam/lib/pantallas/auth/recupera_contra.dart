@@ -55,37 +55,50 @@ class _RecoveryPasswordState extends State<RecoveryPassword> {
         body: Form(
           key: _formKey,
           child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    width: screenSize.height * 0.5,
-                    height: screenSize.height * 0.5,
-                    child: Image(
-                      image: AssetImage(
-                          "imagenes/chemsCompletos/cheems lagrima.png"),
-                    ),
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 500),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: screenSize.height * 0.5,
+                        height: screenSize.height * 0.5,
+                        child: Image(
+                          image: AssetImage(
+                              "imagenes/chemsCompletos/cheems lagrima.png"),
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      Text(
+                        "Recupera tu contraseña",
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      SizedBox(height: 8),
+                      _sent
+                          ? Text(
+                              "Se ha enviado un correo con instrucciones para reestablecer tu contraseña")
+                          : Text(
+                              "Enviaremos una liga a tu correo para reestablecer tu contraseña"),
+                      _sent
+                          ? Container()
+                          : CustomTextInput(
+                              labelText: "Tu correo",
+                              onSaved: (val) => _email = val!),
+                      SizedBox(height: 16),
+                      _sent
+                          ? Container()
+                          : CustomActionButton(
+                              text: "Enviar correo",
+                              onPressed: _sendRecoveryEmail,
+                              isSubmitting: _isSending,
+                            )
+                    ],
                   ),
-                  SizedBox(height: 16),
-                  Text(
-                    "Recupera tu contraseña",
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                      "Enviaremos una liga a tu correo para reestablecer tu contraseña"),
-                  CustomTextInput(
-                      labelText: "Tu correo", onSaved: (val) => _email = val!),
-                  SizedBox(height: 16),
-                  CustomActionButton(
-                    text: "Enviar correo",
-                    onPressed: _sendRecoveryEmail,
-                    isSubmitting: _isSending,
-                  )
-                ],
+                ),
               ),
             ),
           ),

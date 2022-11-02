@@ -222,7 +222,11 @@ class _RegistrationState extends State<Registration> {
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           leading: CloseButton(color: Theme.of(context).primaryColor),
         ),
-        body: _correspondingPage());
+        body: Center(
+          child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 500),
+              child: _correspondingPage()),
+        ));
   }
 
   Widget _correspondingPage() {

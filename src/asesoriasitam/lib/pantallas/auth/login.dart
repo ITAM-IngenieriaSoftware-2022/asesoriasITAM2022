@@ -62,51 +62,56 @@ class _LoginState extends State<Login> {
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text('Asesorias ITAM'),
-                  // _image(),
-                  CustomTextInput(
-                    labelText: "Correo",
-                    onSaved: (val) => _email = val!,
-                    validator: (val) =>
-                        val!.contains("@") ? null : "Checa tu correo",
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  SizedBox(height: 16),
-                  CustomTextInput(
-                    isPassword: true,
-                    onSaved: (val) => _password = val!,
-                    validator: (val) =>
-                        val!.length < 6 ? "Checa tu contraseña" : null,
-                    labelText: "Contraseña",
-                  ),
-                  SizedBox(height: 24),
-                  CustomActionButton(
-                    text: "Iniciar Sesión",
-                    onPressed: _attemptToLogin,
-                    isSubmitting: _isSubmitting,
-                  ),
-                  SizedBox(height: 16),
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 500),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('Asesorias ITAM'),
+                      // _image(),
+                      CustomTextInput(
+                        labelText: "Correo",
+                        onSaved: (val) => _email = val!,
+                        validator: (val) =>
+                            val!.contains("@") ? null : "Checa tu correo",
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      SizedBox(height: 16),
+                      CustomTextInput(
+                        isPassword: true,
+                        onSaved: (val) => _password = val!,
+                        validator: (val) =>
+                            val!.length < 6 ? "Checa tu contraseña" : null,
+                        labelText: "Contraseña",
+                      ),
+                      SizedBox(height: 24),
+                      CustomActionButton(
+                        text: "Iniciar Sesión",
+                        onPressed: _attemptToLogin,
+                        isSubmitting: _isSubmitting,
+                      ),
+                      SizedBox(height: 16),
 
-                  InkWell(
-                      onTap: () => goto(context, RecoveryPassword()),
-                      child: Text("Recuperar Contraseña",
-                          style: TextStyle(
-                              color: Palette.mainGreen, fontSize: 14))),
+                      InkWell(
+                          onTap: () => goto(context, RecoveryPassword()),
+                          child: Text("Recuperar Contraseña",
+                              style: TextStyle(
+                                  color: Palette.mainGreen, fontSize: 14))),
 
-                  SizedBox(height: 2),
-                  InkWell(
-                      onTap: () => goto(context, Registration()),
-                      child: Text(
-                        "Regístrate",
-                        style:
-                            TextStyle(color: Palette.mainGreen, fontSize: 14),
-                      )),
-                ],
+                      SizedBox(height: 2),
+                      InkWell(
+                          onTap: () => goto(context, Registration()),
+                          child: Text(
+                            "Regístrate",
+                            style: TextStyle(
+                                color: Palette.mainGreen, fontSize: 14),
+                          )),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
