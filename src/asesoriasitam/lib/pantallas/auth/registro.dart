@@ -477,6 +477,7 @@ class _RegistrationState extends State<Registration> {
                     ),
                     SizedBox(height: 8),
                     CustomTextInput(
+                      // TODO validar que sea numero sin error
                       labelText: "Semestre",
                       keyboardType: TextInputType.number,
                       onSaved: (val) => usuario.semestre = int.parse(val!),
@@ -523,57 +524,14 @@ class _RegistrationState extends State<Registration> {
   }
 
   Widget carreraChipWrap() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              SizedBox(width: 32),
-              Wrap(
-                direction: Axis.horizontal,
-                runAlignment: WrapAlignment.start,
-                spacing: 8,
-                children: carreras
-                    .sublist(0, (carreras.length / 3).floor())
-                    .map((e) =>
-                        _buildChip(e.nombre, Color(e.color).withOpacity(1)))
-                    .toList(),
-              ),
-              SizedBox(width: 16),
-            ],
-          ),
-          Row(
-            children: [
-              SizedBox(width: 48),
-              Wrap(
-                spacing: 8,
-                children: carreras
-                    .sublist((carreras.length / 3).ceil(),
-                        (2 * carreras.length / 3).floor())
-                    .map((e) =>
-                        _buildChip(e.nombre, Color(e.color).withOpacity(1)))
-                    .toList(),
-              ),
-              SizedBox(width: 16),
-            ],
-          ),
-          Row(
-            children: [
-              SizedBox(width: 32),
-              Wrap(
-                spacing: 8,
-                children: carreras
-                    .sublist((2 * carreras.length / 3).ceil())
-                    .map((e) =>
-                        _buildChip(e.nombre, Color(e.color).withOpacity(1)))
-                    .toList(),
-              ),
-              SizedBox(width: 16),
-            ],
-          ),
-        ],
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: carreras
+            .map((e) => _buildChip(e.nombre, Color(e.color).withOpacity(1)))
+            .toList(),
       ),
     );
   }
@@ -591,16 +549,19 @@ class _RegistrationState extends State<Registration> {
       checkmarkColor: Colors.white,
       selected: carrerasUsuario.contains(text),
       onPressed: () {
-        print(chipSelected);
-        print(carrerasUsuario);
+        print("Se selecciono la carrera $text");
         if (carrerasUsuario.length < 2 && !carrerasUsuario.contains(text)) {
           setState(() {
             carrerasUsuario.add(text);
           });
+          print("Se le agrego (localmente) la carrera $text al usuario");
+          print("Carreras usuario: $carrerasUsuario");
         } else {
           setState(() {
             carrerasUsuario.remove(text);
           });
+          print("Se le elimino (localmente) la carrera $text al usuario");
+          print("Carreras usuario: $carrerasUsuario");
         }
       },
     );
