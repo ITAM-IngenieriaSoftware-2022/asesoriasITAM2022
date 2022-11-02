@@ -1,5 +1,6 @@
 import 'package:asesoriasitam/db/auth_services.dart';
 import 'package:asesoriasitam/palette.dart';
+import 'package:asesoriasitam/pantallas/registro.dart';
 import 'package:asesoriasitam/utils/functionality.dart';
 import 'package:asesoriasitam/widgets/actionButton.dart';
 import 'package:asesoriasitam/widgets/textInput.dart';
@@ -89,23 +90,21 @@ class _LoginState extends State<Login> {
                     isSubmitting: _isSubmitting,
                   ),
                   SizedBox(height: 16),
-                  /*
+
                   InkWell(
-                      onTap: () => goto(context, RecoveryPassword()),
+                      //onTap: () => goto(context, RecoveryPassword()),
                       child: Text("Recuperar Contraseña",
                           style: TextStyle(
                               color: Palette.mainGreen, fontSize: 14))),
-                       
 
                   SizedBox(height: 2),
                   InkWell(
                       onTap: () => goto(context, Registration()),
                       child: Text(
-                        "Me invitaron",
+                        "Regístrate",
                         style:
                             TextStyle(color: Palette.mainGreen, fontSize: 14),
                       )),
-                      */
                 ],
               ),
             ),
