@@ -68,11 +68,15 @@ class _RegistrationState extends State<Registration> {
         _waitingVerification = true;
       });
     }
+    // Cada 10 segundos
     Future(() async {
       _timer = Timer.periodic(const Duration(seconds: 10), (timer) async {
+        // Si todavia no verifica su correo
         if (auth.currentUser != null && _waitingVerification) {
+          // Recarga sus datos de firebase auth y checa si ya
           await auth.currentUser!.reload();
-          print("reloaded user: ${auth.currentUser!.email}");
+          print(
+              "Reloaded user: ${auth.currentUser!.email} Verificado: ${auth.currentUser!.emailVerified}");
           if (auth.currentUser!.emailVerified) {
             //_getCarreras();
             setState(() {
@@ -89,11 +93,12 @@ class _RegistrationState extends State<Registration> {
   }
 
   Future<void> _manuallyCheckEmailVerified() async {
-    print("manually");
+    print("Checando verificacion de correo manualmente");
     var curr = auth.currentUser;
     if (curr != null) {
       await curr.reload();
-      //print("reloaded user: ${auth.currentUser!.email}");
+      print(
+          "Reloaded user: ${auth.currentUser!.email} Verificado: ${auth.currentUser!.emailVerified}");
       if (curr.emailVerified) {
         _getCarreras();
         setState(() {
@@ -135,7 +140,7 @@ class _RegistrationState extends State<Registration> {
     usuario.fechaRegistro = timestamp;
     usuario.carreras = carrerasUsuario;
     usuario.foto = "regular.png";
-    UsuarioBloc().addUserToDB(usuario: usuario);
+    UsuarioBloc().updateNewUser(usuario: usuario);
   }
 
   Future<void> _submitPrimerPaso() async {
@@ -248,10 +253,10 @@ class _RegistrationState extends State<Registration> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('imagenes/collage.png'),
+          //Image.asset('imagenes/collage.png'),
           SizedBox(height: 24),
           Text(
-            "¡Bienvenidx a Comunidad 2.0!",
+            "¡Bienvenidx a Asesorias ITAM!",
             style: Theme.of(context).textTheme.headline6,
           ),
           SizedBox(height: 8),
@@ -355,6 +360,7 @@ class _RegistrationState extends State<Registration> {
                       labelText: "Correo",
                       onSaved: (val) => usuario.correo = val!,
                       keyboardType: TextInputType.emailAddress,
+                      // TODO
                       // validator: (val) => !val.contains("@itam.mx")
                       // ? "Solo de permite registro con tu correo institucional"
                       // : null,
