@@ -1,5 +1,6 @@
 import 'package:asesoriasitam/pantallas/inicio.dart';
-import 'package:asesoriasitam/pantallas/login.dart';
+import 'package:asesoriasitam/pantallas/auth/login.dart';
+import 'package:asesoriasitam/themes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Asesorias ITAM',
         debugShowCheckedModeBanner: false,
-        //theme: lightTheme,
+        theme: lightTheme,
         home: AuthenticationWrapper(),
       ),
     );

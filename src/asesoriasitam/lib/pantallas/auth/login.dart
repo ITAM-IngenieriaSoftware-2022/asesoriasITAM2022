@@ -1,6 +1,7 @@
 import 'package:asesoriasitam/db/auth_services.dart';
 import 'package:asesoriasitam/palette.dart';
-import 'package:asesoriasitam/pantallas/registro.dart';
+import 'package:asesoriasitam/pantallas/auth/recupera_contra.dart';
+import 'package:asesoriasitam/pantallas/auth/registro.dart';
 import 'package:asesoriasitam/utils/functionality.dart';
 import 'package:asesoriasitam/widgets/actionButton.dart';
 import 'package:asesoriasitam/widgets/textInput.dart';
@@ -92,7 +93,7 @@ class _LoginState extends State<Login> {
                   SizedBox(height: 16),
 
                   InkWell(
-                      //onTap: () => goto(context, RecoveryPassword()),
+                      onTap: () => goto(context, RecoveryPassword()),
                       child: Text("Recuperar Contraseña",
                           style: TextStyle(
                               color: Palette.mainGreen, fontSize: 14))),
