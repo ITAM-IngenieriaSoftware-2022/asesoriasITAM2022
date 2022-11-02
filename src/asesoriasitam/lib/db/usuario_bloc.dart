@@ -17,7 +17,8 @@ class UsuarioBloc {
     print("Usuario registrado");
   }
 
-  Future<void> addUserToDB({required Usuario usuario}) async {
+  Future<void> updateNewUser({required Usuario usuario}) async {
+    print("Actualizando datos de usuario nuevo...");
     print(FirebaseAuth.instance.currentUser?.uid);
     print(FirebaseAuth.instance.currentUser?.emailVerified);
     await userRef.doc(usuario.uid).update({
