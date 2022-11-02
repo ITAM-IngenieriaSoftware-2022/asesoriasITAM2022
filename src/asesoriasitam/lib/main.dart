@@ -1,3 +1,4 @@
+import 'package:asesoriasitam/pantallas/auth/registro.dart';
 import 'package:asesoriasitam/pantallas/inicio.dart';
 import 'package:asesoriasitam/pantallas/auth/login.dart';
 import 'package:asesoriasitam/themes.dart';
@@ -51,8 +52,7 @@ class AuthenticationWrapper extends StatelessWidget {
     } else if (firebaseUser != null &&
         !Global.registering &&
         !firebaseUser.emailVerified) {
-      return Container();
-      //return Registration();
+      return Registration();
     } else if (firebaseUser != null && !Global.registering) {
       print("user waiting in");
       print(firebaseUser.email);
