@@ -87,4 +87,8 @@ class UsuarioBloc {
       );
     });
   }
+
+  Future<void> reportar({required Map<String, dynamic> data}) async {
+    await FirebaseFirestore.instance.collection("reportes").add(data);
+  }
 }

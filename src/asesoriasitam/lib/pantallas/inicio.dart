@@ -1,6 +1,7 @@
 import 'package:asesoriasitam/db/auth_services.dart';
 import 'package:asesoriasitam/db/clases/usuario.dart';
 import 'package:asesoriasitam/global.dart';
+import 'package:asesoriasitam/pantallas/perfil/perfil.dart';
 import 'package:asesoriasitam/utils/functionality.dart';
 
 import 'package:asesoriasitam/widgets/userAvatar.dart';
@@ -124,6 +125,8 @@ class _InicioState extends State<Inicio> {
             ),
           ),
           Divider(),
+          _drawerTile(
+              "Mi Perfil", CupertinoIcons.person, Perfil(usuario: usuario)),
           Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,
@@ -139,6 +142,21 @@ class _InicioState extends State<Inicio> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _drawerTile(String title, IconData tileIcon, Widget pageToPush) {
+    return ListTile(
+      title: Text(title,
+          style: Theme.of(context).textTheme.headline6!.copyWith(
+              //fontSize: 18,
+              //fontWeight: FontWeight.w400,
+              )),
+      minLeadingWidth: 0,
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => pageToPush));
+      },
     );
   }
 }
