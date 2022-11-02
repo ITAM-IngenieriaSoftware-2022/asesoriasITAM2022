@@ -5,8 +5,6 @@ import 'package:asesoriasitam/pantallas/auth/registro.dart';
 import 'package:asesoriasitam/utils/functionality.dart';
 import 'package:asesoriasitam/widgets/actionButton.dart';
 import 'package:asesoriasitam/widgets/textInput.dart';
-import 'package:asesoriasitam/widgets/actionButton.dart';
-import 'package:asesoriasitam/widgets/textInput.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -1,7 +1,6 @@
 import 'package:asesoriasitam/global.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'clases/usuario.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
