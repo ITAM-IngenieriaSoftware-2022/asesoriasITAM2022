@@ -1,6 +1,7 @@
 import 'package:asesoriasitam/pantallas/auth/registro.dart';
 import 'package:asesoriasitam/pantallas/inicio.dart';
 import 'package:asesoriasitam/pantallas/auth/login.dart';
+import 'package:asesoriasitam/pantallas/perfil/perfil.dart';
 import 'package:asesoriasitam/themes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
