@@ -11,7 +11,14 @@ class UsuarioBloc {
   final asesoriaRef = FirebaseFirestore.instance.collection("asesorias");
   final archivosRef = FirebaseFirestore.instance.collection("archivos");
 
-  Future<void> addUserToDB({required Usuario usuario}) async {
+  Future<void> registerUser({required Usuario usuario}) async {
+    print("Registrando usuario....");
+    await userRef.doc(usuario.uid).set(usuario.toMap(usuario));
+    print("Usuario registrado");
+  }
+
+  Future<void> updateNewUser({required Usuario usuario}) async {
+    print("Actualizando datos de usuario nuevo...");
     print(FirebaseAuth.instance.currentUser?.uid);
     print(FirebaseAuth.instance.currentUser?.emailVerified);
     await userRef.doc(usuario.uid).update({
@@ -26,9 +33,13 @@ class UsuarioBloc {
 
   Future<Usuario> getUserFromDB({required String uid}) async {
     print(uid);
-    final DocumentSnapshot doc = await userRef.doc(uid).get();
-    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-    return Usuario.fromMap(data);
+    try {
+      final DocumentSnapshot doc = await userRef.doc(uid).get();
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      return Usuario.fromMap(data);
+    } catch (e) {
+      return Usuario();
+    }
   }
 
   Future<List<Usuario>> getUsers({required List<String> usuarios}) async {

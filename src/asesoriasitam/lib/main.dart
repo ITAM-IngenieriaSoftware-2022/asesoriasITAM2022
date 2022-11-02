@@ -1,4 +1,7 @@
-import 'package:asesoriasitam/pantallas/login.dart';
+import 'package:asesoriasitam/pantallas/auth/registro.dart';
+import 'package:asesoriasitam/pantallas/inicio.dart';
+import 'package:asesoriasitam/pantallas/auth/login.dart';
+import 'package:asesoriasitam/themes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -31,7 +34,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Asesorias ITAM',
         debugShowCheckedModeBanner: false,
-        //theme: lightTheme,
+        theme: lightTheme,
         home: AuthenticationWrapper(),
       ),
     );
@@ -49,13 +52,13 @@ class AuthenticationWrapper extends StatelessWidget {
     } else if (firebaseUser != null &&
         !Global.registering &&
         !firebaseUser.emailVerified) {
-      return Container();
-      //return Registration();
-    } else {
+      return Registration();
+    } else if (firebaseUser != null && !Global.registering) {
       print("user waiting in");
       print(firebaseUser.email);
-      return Container();
-      //return Inicio();
+      return Inicio();
+    } else {
+      return Text('a');
     }
   }
 }

@@ -7,9 +7,8 @@ class Global {
   static Usuario? usuario;
   static bool registering = false;
   //Legal
-  static String terminosURL =
-      "https://comunidad2.com/terminosYCondiciones.html";
-  static String privacidadURL = "https://comunidad2.com/privacidad.html";
+  static String terminosURL = "";
+  static String privacidadURL = "";
 
   static Future<void> getUsuario({required String uid}) async {
     print("getting user fromBd in global...");

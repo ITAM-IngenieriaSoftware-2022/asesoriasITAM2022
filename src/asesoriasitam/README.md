@@ -31,6 +31,8 @@ lib: la carpeta con el código (todo lo demás es autogenerado)
     global.dart (Clase con variables globales)
 
     pallete.dart (Clase con colores, etc. que define la temática)
+
+    themes.dart (Archivo con declaración de temáticas)
     
     main.dart (Punto de entrada de la aplicación - NO CAMBIAR) 
 
