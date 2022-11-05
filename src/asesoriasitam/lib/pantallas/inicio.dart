@@ -1,6 +1,7 @@
 import 'package:asesoriasitam/db/auth_services.dart';
 import 'package:asesoriasitam/db/clases/usuario.dart';
 import 'package:asesoriasitam/global.dart';
+import 'package:asesoriasitam/pantallas/asesorias/anuncia_asesoria.dart';
 import 'package:asesoriasitam/pantallas/perfil/perfil.dart';
 import 'package:asesoriasitam/utils/functionality.dart';
 
@@ -127,6 +128,10 @@ class _InicioState extends State<Inicio> {
           Divider(),
           _drawerTile(
               "Mi Perfil", CupertinoIcons.person, Perfil(usuario: usuario)),
+          _drawerTile(
+              "Anunciar asesoria",
+              CupertinoIcons.dot_radiowaves_left_right,
+              AnunciaAsesoria(usuario: usuario!)),
           Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,

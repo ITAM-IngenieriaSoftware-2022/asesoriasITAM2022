@@ -57,3 +57,10 @@ void showSnack(
     duration: Duration(seconds: durationInSeconds),
   ));
 }
+
+bool isNumeric(String s) {
+  if (s == null) {
+    return false;
+  }
+  return double.tryParse(s) != null;
+}

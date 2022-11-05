@@ -2,64 +2,71 @@ class Asesoria {
   late String? uid,
       nombreCompletoUsuario,
       porUsuario,
-      descripcionCorta,
       detalles,
-      usuarioFoto;
-  late String? mail, tel, wa, imagenUrl;
-  late bool? visible;
-  late List<String>? clasesUid;
-  late List<String>? clasesNombres;
-  late List<String>? recomendadoPor;
+      usuarioFoto,
+      clase;
+  late String? mail, tel, wa; // imagenUrl; //tomar de usuario?
+  late bool? visible, baneado;
+  late List<String>? recomendadoPor, lugares; //Lugares como lista??
   late int? recomendadoPorN;
+  late double? precio;
+  late Map<String, dynamic>? horario;
   Asesoria(
       {this.uid,
       this.nombreCompletoUsuario,
       this.porUsuario,
+      this.detalles,
       this.usuarioFoto,
+      this.clase,
       this.mail,
       this.tel,
       this.wa,
-      this.descripcionCorta,
-      this.detalles,
-      this.recomendadoPor,
-      this.recomendadoPorN,
-      this.clasesUid,
+      //this.imagenUrl,
       this.visible,
-      this.imagenUrl});
+      this.baneado,
+      this.recomendadoPor,
+      this.lugares,
+      this.recomendadoPorN,
+      this.precio,
+      this.horario});
   Asesoria.fromMap(Map<String, dynamic> mapData) {
     this.uid = mapData["uid"];
     this.nombreCompletoUsuario = mapData["nombreCompletoUsuario"];
     this.porUsuario = mapData["porUsuario"];
-    this.usuarioFoto = mapData["usuarioFoto"];
-    this.mail = mapData["mail"];
-    this.wa = mapData["wa"];
-    this.tel = mapData["tel"];
-    this.descripcionCorta = mapData["descripcionCorta"];
     this.detalles = mapData["detalles"];
-    this.imagenUrl = mapData["imagenUrl"];
-    this.recomendadoPorN = mapData["recomendadoPorN"];
-    this.recomendadoPor = List.from(mapData["recomendadoPor"]);
-    this.clasesUid = List.from(mapData["clasesUid"]);
-    this.clasesNombres = List.from(mapData["clasesNombres"]);
+    this.usuarioFoto = mapData["usuarioFoto"];
+    this.clase = mapData["clase"];
+    this.mail = mapData["mail"];
+    this.tel = mapData["tel"];
+    this.wa = mapData["wa"];
+    //this.imagenUrl = mapData["imagenUrl"];
     this.visible = mapData["visible"];
+    this.baneado = mapData["baneado"];
+    this.recomendadoPor = List.from(mapData["recomendadoPor"]);
+    this.lugares = List.from(mapData["lugares"]);
+    this.recomendadoPorN = mapData["recomendadoPorN"];
+    this.precio = mapData["precio"];
+    this.horario = mapData["horario"];
   }
-  Map<String, dynamic> toMap(Asesoria grupo) {
+  Map<String, dynamic> toMap(Asesoria obj) {
     var data = Map<String, dynamic>();
-    data["uid"] = grupo.uid;
-    data["nombreCompletoUsuario"] = grupo.nombreCompletoUsuario;
-    data["porUsuario"] = grupo.porUsuario;
-    data["usuarioFoto"] = grupo.usuarioFoto;
-    data["mail"] = grupo.mail;
-    data["wa"] = grupo.wa;
-    data["tel"] = grupo.tel;
-    data["descripcionCorta"] = grupo.descripcionCorta;
-    data["detalles"] = grupo.detalles;
-    data["recomendadoPor"] = grupo.recomendadoPor;
-    data["recomendadoPorN"] = grupo.recomendadoPorN;
-    data["clasesUid"] = grupo.clasesUid;
-    data["clasesNombres"] = grupo.clasesNombres;
-    data["imagenUrl"] = grupo.imagenUrl;
-    data["visible"] = visible;
+    data["uid"] = obj.uid;
+    data["nombreCompletoUsuario"] = obj.nombreCompletoUsuario;
+    data["porUsuario"] = obj.porUsuario;
+    data["detalles"] = obj.detalles;
+    data["usuarioFoto"] = obj.usuarioFoto;
+    data["clase"] = obj.clase;
+    data["mail"] = obj.mail;
+    data["tel"] = obj.tel;
+    data["wa"] = obj.wa;
+    //data["imagenUrl"] = obj.imagenUrl;
+    data["visible"] = obj.visible;
+    data["baneado"] = obj.baneado;
+    data["recomendadoPor"] = obj.recomendadoPor;
+    data["lugares"] = obj.lugares;
+    data["recomendadoPorN"] = obj.recomendadoPorN;
+    data["precio"] = obj.precio;
+    data["horario"] = obj.horario;
     return data;
   }
 }

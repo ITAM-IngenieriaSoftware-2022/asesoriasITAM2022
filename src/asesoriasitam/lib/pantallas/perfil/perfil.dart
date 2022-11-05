@@ -1,3 +1,4 @@
+import 'package:asesoriasitam/db/asesoria_bloc.dart';
 import 'package:asesoriasitam/db/clases/asesoria.dart';
 import 'package:asesoriasitam/db/usuario_bloc.dart';
 import 'package:asesoriasitam/db/clases/usuario.dart';
@@ -75,7 +76,7 @@ class _PerfilState extends State<Perfil> {
         });
       }
 
-      //await getUserAsesorias();
+      await _getAsesorias();
       anyData();
     }
   }
@@ -116,6 +117,21 @@ class _PerfilState extends State<Perfil> {
     });
   }
 
+  _getAsesorias() async {
+    asesorias = [];
+    try {
+      List<Asesoria> nuevos =
+          await AsesoriaBloc().getAsesoriasByUsuario(usuarioUid: usuario!.uid!);
+      setState(() {
+        asesorias = nuevos;
+        print("GOT asesorias");
+      });
+    } catch (e) {
+      print('error getting asesorias');
+      print(e);
+    }
+  }
+
   bool anyData() {
     return _anyData =
         asesorias.length > 0 || _grupos.length > 0 || _clases.length > 0;
@@ -148,7 +164,7 @@ class _PerfilState extends State<Perfil> {
                 ? Column(
                     children: [
                       _getHeader(),
-                      //_showAsesorias(context),
+                      _showAsesorias(context),
                       //_showGrupos(context),
                       //_showClases(context),
                       //_showArchivos(context),
@@ -158,6 +174,22 @@ class _PerfilState extends State<Perfil> {
                 : noDataColumn(),
           ),
         ));
+  }
+
+  Widget _showAsesorias(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: 32),
+        Text("Tus Asesorias", style: Theme.of(context).textTheme.headline6),
+        SizedBox(height: 32),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children:
+              asesorias.map((e) => asesoriaCard(e, 250, 150, context)).toList(),
+        ),
+      ],
+    );
   }
 
   Widget noDataColumn() {
@@ -280,20 +312,13 @@ class _PerfilState extends State<Perfil> {
           Wrap(
             runSpacing: 8,
             children: [
-              usuario!.instagram != null && usuario!.instagram != ""
-                  ? _socialMediaButton(
-                      "https://www.instagram.com/${usuario!.instagram}",
-                      FaIcon(FontAwesomeIcons.instagram))
+              usuario!.tel != null && usuario!.tel != ""
+                  ? _socialMediaButton("https://wa.me/${usuario!.tel}",
+                      FaIcon(FontAwesomeIcons.whatsapp))
                   : Container(),
-              usuario!.twitter != null && usuario!.twitter != ""
-                  ? _socialMediaButton(
-                      "https://twitter.com/${usuario!.twitter}/",
-                      FaIcon(FontAwesomeIcons.twitter))
-                  : Container(),
-              usuario!.facebook != null && usuario!.facebook != ""
-                  ? _socialMediaButton(
-                      "https://www.facebook.com/${usuario!.facebook}",
-                      FaIcon(FontAwesomeIcons.facebook))
+              usuario!.correo != null && usuario!.correo != ""
+                  ? _socialMediaButton("mailto:${usuario!.correo}",
+                      FaIcon(FontAwesomeIcons.envelope))
                   : Container(),
             ],
           ),
