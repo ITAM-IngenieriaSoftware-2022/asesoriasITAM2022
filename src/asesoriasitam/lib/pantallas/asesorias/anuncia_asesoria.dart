@@ -54,6 +54,9 @@ class _AnunciaAsesoriaState extends State<AnunciaAsesoria> {
   bool _missingFields = false;
   bool _subido = false;
 
+  // Otros
+  List<String> diasOrdenados = ['LU', 'MA', 'MI', 'JU', 'VI', 'SA', 'DO'];
+
   _AnunciaAsesoriaState(this.usuario);
 
   Future<void> _attemptToRegister() async {
@@ -394,7 +397,7 @@ class _AnunciaAsesoriaState extends State<AnunciaAsesoria> {
           "Llena tu horario para cada día de la semana. Deja la caja vacía si no darás asesorías ese dia:"),
       SizedBox(height: 16)
     ];
-    content.addAll(asesoria.horario!.keys
+    content.addAll(diasOrdenados
         .map((e) => CustomTextInput(
               labelText: "Horario para $e. Ej. 9:00-11:00, 14:00-15:00",
               onChanged: (val) => asesoria.horario?[e] = val,
@@ -475,8 +478,6 @@ class _AnunciaAsesoriaState extends State<AnunciaAsesoria> {
   }
 
   Step _descripcionStep() {
-    print("here in desc step");
-    //TODO incluye horarios, lugares y precio
     return Step(
         title: Text("Descripción"),
         content: Column(

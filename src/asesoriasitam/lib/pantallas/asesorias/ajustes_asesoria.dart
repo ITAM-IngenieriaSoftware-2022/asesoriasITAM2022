@@ -70,12 +70,19 @@ class _EditAsesoriaPageState extends State<AsesoriaSettings> {
           ],
         ),
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              _showVisibleSwitch(),
-              Divider(),
-              _borrarTile(),
-            ],
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 500),
+              child: Column(
+                children: [
+                  _showVisibleSwitch(),
+                  Divider(),
+                  _borrarTile(),
+                  SizedBox(height: 32),
+                  Text("Oprime 'Guardar' para efectuar cualquier cambio")
+                ],
+              ),
+            ),
           ),
         ));
   }

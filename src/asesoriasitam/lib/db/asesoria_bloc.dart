@@ -37,7 +37,6 @@ class AsesoriaBloc {
         asesoriaDoc,
         {
           "detalles": asesoria.detalles,
-          //"imagenUrl": asesoria.imagenUrl,
           "mail": asesoria.mail,
           "wa": asesoria.wa,
           "tel": asesoria.tel,

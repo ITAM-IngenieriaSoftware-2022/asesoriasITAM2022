@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:asesoriasitam/db/asesoria_bloc.dart';
 import 'package:asesoriasitam/db/clases/asesoria.dart';
-import 'package:asesoriasitam/palette.dart';
+import 'package:asesoriasitam/db/clases/lugar.dart';
+import 'package:asesoriasitam/db/lugar_bloc.dart';
 import 'package:asesoriasitam/utils/functionality.dart';
+import 'package:asesoriasitam/widgets/textInput.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 
 class EditAsesoriaPage extends StatefulWidget {
   final Asesoria asesoria;
@@ -25,15 +25,25 @@ class _EditAsesoriaPageState extends State<EditAsesoriaPage> {
   File? _cropped;
   late bool showWa;
   late bool showTel;
-  //UI controllers
+
+  // Lugares
+  List<Lugar> lugares = [];
+  bool gotLugares = false;
+
+  // UI controllers
   bool _submitting = false;
   bool _error = false;
   _EditAsesoriaPageState(this.asesoria);
+
+  // Otros
+  List<String> diasOrdenados = ['LU', 'MA', 'MI', 'JU', 'VI', 'SA', 'DO'];
+
   @override
   void initState() {
     showWa = asesoria.wa != null;
     showTel = asesoria.tel != null;
     super.initState();
+    _getLugares();
   }
 
   void _attemptToUpdate() async {
@@ -74,6 +84,22 @@ class _EditAsesoriaPageState extends State<EditAsesoriaPage> {
     }
   }
 
+  Future<void> _getLugares() async {
+    print("Intentando conseguir lugares...");
+    lugares = [];
+    try {
+      List<Lugar> nuevos = await LugarBloc().getLugares();
+      setState(() {
+        lugares = nuevos;
+        gotLugares = true;
+        print("Got lugares:$lugares");
+      });
+    } catch (e) {
+      print("Error consiguiendo lugares:");
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,53 +125,103 @@ class _EditAsesoriaPageState extends State<EditAsesoriaPage> {
         body: Form(
           key: _formKey,
           child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Column(
-                children: [
-                  _showDetallesInput(),
-                  _showMailInput(),
-                  _showTelSwitch(),
-                  _showWaSwitch(),
-                  showTel ? _showTelInput() : Container(),
-                  (showTel && showWa) ? _showWaLink() : Container(),
-                  SizedBox(height: 32)
-                ],
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 500),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Column(
+                    children: [
+                      _showHorarioInput(),
+                      _showLugaresInput(),
+                      _showDetallesInput(),
+                      _showPrecioInput(),
+                      _showMailInput(),
+                      _showTelSwitch(),
+                      _showWaSwitch(),
+                      showTel ? _showTelInput() : Container(),
+                      (showTel && showWa) ? _showWaLink() : Container(),
+                      SizedBox(height: 32)
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
         ));
   }
 
-  ///Selecciona, recorta y sube imagen.
-  Future<void> seleccionarImagen() async {
-    final _picker = ImagePicker();
-    PickedFile? image = await _picker.getImage(
-      source: ImageSource.gallery,
-      maxWidth: 1800,
-      maxHeight: 1800,
-    );
-    /*
-    if (image != null) {
-      File? c = await ImageCropper.cropImage(
-        sourcePath: image.path,
-        maxWidth: 1080,
-        maxHeight: 1080,
-        androidUiSettings: AndroidUiSettings(
-          toolbarColor: Colors.white,
-          toolbarTitle: "Recorta tu imagen",
-          backgroundColor: Colors.white,
-          activeControlsWidgetColor: Palette.mainGreen,
+  Widget _showHorarioInput() {
+    List<Widget> content = [
+      SizedBox(height: 32),
+      Text(
+          "Llena tu horario para cada día de la semana. Deja la caja vacía si no darás asesorías ese dia:"),
+      SizedBox(height: 32)
+    ];
+    content.addAll(diasOrdenados
+        .map((e) => CustomTextInput(
+              labelText: "Horario para $e. Ej. 9:00-11:00, 14:00-15:00",
+              onChanged: (val) => asesoria.horario?[e] = val,
+              onSaved: (val) => asesoria.horario?[e] = val,
+              initialText: asesoria.horario?[e],
+            ))
+        .toList());
+    return Column(children: content);
+  }
+
+  Widget _showLugaresInput() {
+    return lugaresChipWrap();
+  }
+
+  Widget lugaresChipWrap() {
+    if (gotLugares && lugares.isNotEmpty) {
+      return Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: lugares
+              .map((e) => _buildChip(e.nombre, Color(e.color).withOpacity(1)))
+              .toList(),
         ),
       );
-      if (c != null) {
-        setState(() {
-          _cropped = c;
-        });
-      }
-      
+    } else if (gotLugares && lugares.isEmpty) {
+      return Text(
+          "No se encontraron lugares. Puedes agregarlos después editando la asesoría.");
+    } else {
+      return CircularProgressIndicator();
     }
-    */
+  }
+
+  Widget _buildChip(String text, Color color) {
+    return InputChip(
+      key: Key(text),
+      labelPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+      label: Text(
+        text,
+        style: TextStyle(color: Colors.white),
+      ),
+      backgroundColor: color.withOpacity(0.8),
+      selectedColor: color,
+      checkmarkColor: Colors.white,
+      selected: asesoria.lugares!.contains(text),
+      onPressed: () {
+        print("Se selecciono el lugar $text");
+        if (!asesoria.lugares!.contains(text)) {
+          setState(() {
+            asesoria.lugares!.add(text);
+          });
+          print("Se le agrego (localmente) el lugar $text a la asesoria");
+          print("Lugares: ${asesoria.lugares}");
+        } else {
+          setState(() {
+            asesoria.lugares!.remove(text);
+          });
+          print("Se le elimino (localmente) el lugar $text de la asesoria");
+          print("Lugares: ${asesoria.lugares}");
+        }
+      },
+    );
   }
 
   _showDetallesInput() {
@@ -164,6 +240,19 @@ class _EditAsesoriaPageState extends State<EditAsesoriaPage> {
             hintText: "Detalles",
             //helperText: "Ingresa una descripcion util",
           )),
+    );
+  }
+
+  Widget _showPrecioInput() {
+    return CustomTextInput(
+      labelText: "Precio/Hr en pesos (Ingresa 0 si será gratuito)",
+      keyboardType: TextInputType.number,
+      initialText: asesoria.precio.toString(),
+      onChanged: (val) => setState(() => asesoria.precio = double.parse(val!)),
+      onSaved: (val) => asesoria.precio = double.parse(val!),
+      validator: (val) => !isNumeric(val!)
+          ? "Debe ser un numero. Ingresa 0 si será gratuito."
+          : null,
     );
   }
 
