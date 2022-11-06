@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:asesoriasitam/db/clases/asesoria.dart';
+import 'package:asesoriasitam/db/clases/comentario.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'clases/usuario.dart';
@@ -25,7 +26,6 @@ class AsesoriaBloc {
     await asesoriasRef.doc(asesoria.uid).delete();
   }
 
-  //transaction //TODO esto
   Future<void> updateAsesoria({required Asesoria asesoria}) async {
     DocumentReference asesoriaDoc = asesoriasRef.doc(asesoria.uid);
     return FirebaseFirestore.instance.runTransaction((transaction) async {
@@ -49,23 +49,69 @@ class AsesoriaBloc {
     });
   }
 
-  ///Adds usuario uid to recomendadoPor and increases recomendadoPorN counter.
-  Future<void> recomendarAsesoria(
-      {required Asesoria asesoria, required Usuario usuario}) async {
+  Future<void> calificarAsesoria(
+      {required Asesoria asesoria, required Comentario comentario}) {
     DocumentReference asesoriaDoc = asesoriasRef.doc(asesoria.uid);
-    await asesoriaDoc.update({
-      'recomendadoPorN': FieldValue.increment(1),
-      'recomendadoPor': FieldValue.arrayUnion([usuario.uid])
+    DocumentReference comentarioDoc = asesoriasRef
+        .doc(comentario.asesoriaUid)
+        .collection('comentarios')
+        .doc(comentario.uid);
+
+    return FirebaseFirestore.instance.runTransaction((transaction) async {
+      // Aumentamos/disminuimos los recomendados por N.
+      transaction.update(asesoriaDoc, {
+        'recomendadoPorN': FieldValue.increment(comentario.recomiendo! ? 1 : -1)
+      });
+      // Subimos el comentario
+      transaction.set(comentarioDoc, comentario.toMap(comentario));
     });
   }
 
-  ///Removes usuario uid to recomendadoPor and decreases recomendadoPorN counter.
-  Future<void> desrecomendarAsesoria(
-      {required Asesoria asesoria, required Usuario usuario}) async {
+  Future<void> actualizarCalificacion(
+      {required Asesoria asesoria,
+      required Comentario comentario,
+      required bool recomiendoOld}) {
     DocumentReference asesoriaDoc = asesoriasRef.doc(asesoria.uid);
-    await asesoriaDoc.update({
-      'recomendadoPorN': FieldValue.increment(-1),
-      'recomendadoPor': FieldValue.arrayRemove([usuario.uid])
+    DocumentReference comentarioDoc = asesoriasRef
+        .doc(comentario.asesoriaUid)
+        .collection('comentarios')
+        .doc(comentario.uid);
+
+    int incBy = 0;
+    if (recomiendoOld == comentario.recomiendo) {
+      incBy = 0;
+    } else if (!recomiendoOld && comentario.recomiendo!) {
+      // Si antes no recomendaba (-1) y ahora si (+1) tenemos que sumar +2
+      incBy = 2;
+    } else {
+      // Si antes recomendaba (+1) y ahora no (-1) tenemos que sumar -2
+      incBy = -2;
+    }
+
+    return FirebaseFirestore.instance.runTransaction((transaction) async {
+      // Aumentamos/disminuimos los recomendados por N.
+      transaction.update(
+          asesoriaDoc, {'recomendadoPorN': FieldValue.increment(incBy)});
+      // Subimos el comentario
+      transaction.update(comentarioDoc, comentario.toMap(comentario));
+    });
+  }
+
+  Future<void> descalificarAsesoria(
+      {required Asesoria asesoria, required Comentario comentario}) {
+    DocumentReference asesoriaDoc = asesoriasRef.doc(asesoria.uid);
+    DocumentReference comentarioDoc = asesoriasRef
+        .doc(comentario.asesoriaUid)
+        .collection('comentarios')
+        .doc(comentario.uid);
+
+    return FirebaseFirestore.instance.runTransaction((transaction) async {
+      // Aumentamos/disminuimos los recomendados por N.
+      transaction.update(asesoriaDoc, {
+        'recomendadoPorN': FieldValue.increment(comentario.recomiendo! ? -1 : 1)
+      });
+      // Borramos el comentario
+      transaction.delete(comentarioDoc);
     });
   }
 

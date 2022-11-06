@@ -3,11 +3,13 @@ import 'package:asesoriasitam/db/clases/asesoria.dart';
 import 'package:asesoriasitam/db/clases/usuario.dart';
 import 'package:asesoriasitam/global.dart';
 import 'package:asesoriasitam/palette.dart';
+import 'package:asesoriasitam/pantallas/asesorias/comentar.dart';
 import 'package:asesoriasitam/utils/functionality.dart';
 import 'package:asesoriasitam/pantallas/asesorias/ajustes_asesoria.dart';
 import 'package:asesoriasitam/pantallas/asesorias/editar_asesoria.dart';
 import 'package:asesoriasitam/pantallas/perfil/perfil.dart';
 import 'package:asesoriasitam/utils/reportar.dart';
+import 'package:asesoriasitam/utils/usefulWidgets.dart';
 import 'package:asesoriasitam/widgets/userAvatar.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +26,9 @@ class _AsesoriaPageState extends State<AsesoriaPage> {
   late Usuario usuario;
   bool miAsesoria = false;
   bool _recomendado = true;
+
+  // Otros
+  List<String> diasOrdenados = ['LU', 'MA', 'MI', 'JU', 'VI', 'SA', 'DO'];
 
   _AsesoriaPageState(this.asesoria);
 
@@ -135,10 +140,18 @@ class _AsesoriaPageState extends State<AsesoriaPage> {
                         usuarioUid: asesoria.porUsuario!,
                       )),
                 ),
-                //Clases
+                // Clase
                 SizedBox(height: 8),
                 Text(
                   "Para " + asesoria.clase!,
+                  style: TextStyle(color: scaffColor, fontSize: 18),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                // Precio
+                Text(
+                  "\$ " + asesoria.precio!.toString() + " /hr",
                   style: TextStyle(color: scaffColor, fontSize: 18),
                 ),
                 SizedBox(
@@ -156,18 +169,21 @@ class _AsesoriaPageState extends State<AsesoriaPage> {
                       )
                     : Container(),
                 InkWell(
-                    onTap: () async {
+                    onTap: () =>
+                        goto(context, ComentarAsesoriaPage(asesoria: asesoria)),
+                    /*async {
                       try {
                         _recomendado
                             ? await AsesoriaBloc().desrecomendarAsesoria(
                                 asesoria: asesoria, usuario: usuario)
                             : await AsesoriaBloc().recomendarAsesoria(
                                 asesoria: asesoria, usuario: usuario);
+
                         _update();
                       } catch (e) {
                         print(e);
                       }
-                    },
+                    },*/
                     child: Text(
                       _recomendado
                           ? "Dejar de recomendar"
@@ -205,6 +221,7 @@ class _AsesoriaPageState extends State<AsesoriaPage> {
               ),
             ),
           ),
+          _horario(),
 
           //Contacto
           SizedBox(height: 16),
@@ -253,17 +270,20 @@ class _AsesoriaPageState extends State<AsesoriaPage> {
       ),
     );
   }
-  /*
-  Widget _image() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-          clipBehavior: Clip.hardEdge,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          child: Image.network(asesoria.imagenUrl!)),
-    );
+
+  Widget _horario() {
+    List<Widget> out = [];
+    for (String dia in diasOrdenados) {
+      String hrs = asesoria.horario![dia];
+      if (hrs.isEmpty) continue;
+      out.add(Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Column(children: [Text(dia)]),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [Text(hrs)],
+        )
+      ]));
+    }
+    return CenteredConstrainedBox(child: Column(children: out), maxWidth: 100);
   }
-  */
 }
