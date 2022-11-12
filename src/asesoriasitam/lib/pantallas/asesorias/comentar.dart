@@ -68,6 +68,7 @@ class _ComentarAsesoriaPageState extends State<ComentarAsesoriaPage> {
       _comentario.texto = "";
       _comentario.recomiendo = true;
       _comentario.asesoriaUid = asesoria.uid;
+      _comentario.subido = DateTime.now();
     }
     setState(() {
       _gotComentario = true;

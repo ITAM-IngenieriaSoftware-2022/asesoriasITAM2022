@@ -64,3 +64,7 @@ bool isNumeric(String s) {
   }
   return double.tryParse(s) != null;
 }
+
+String dayMonthYear(DateTime d) {
+  return "${d.day.toString()}/${d.month.toString()}/${d.year.toString().substring(2)}";
+}
