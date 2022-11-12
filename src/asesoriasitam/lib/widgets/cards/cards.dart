@@ -1,6 +1,6 @@
 import 'package:asesoriasitam/db/clases/asesoria.dart';
+import 'package:asesoriasitam/pantallas/asesorias/asesoria.dart';
 import 'package:asesoriasitam/utils/functionality.dart';
-import 'package:asesoriasitam/pantallas/asesoria.dart';
 import 'package:asesoriasitam/widgets/tappableCard.dart';
 import 'package:asesoriasitam/widgets/userAvatar.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,7 +33,8 @@ Widget asesoriaCard(Asesoria asesoria, double cardWidth, double cardHeight,
   return TappableCard(
     cardWidth: cardWidth,
     cardHeight: cardHeight,
-    onTap: () => goto(context, AsesoriaPage()), //asesoria: asesoria)),
+    onTap: () =>
+        goto(context, AsesoriaPage(asesoria: asesoria)), //asesoria: asesoria)),
     cardContent: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       child: Column(
@@ -82,14 +83,14 @@ Widget asesoriaCard(Asesoria asesoria, double cardWidth, double cardHeight,
           ),
           SizedBox(height: 8),
           Text(
-            asesoria.descripcionCorta!,
+            asesoria.detalles!,
             textAlign: TextAlign.left,
             overflow: TextOverflow.ellipsis,
             maxLines: 3,
             style: TextStyle(fontSize: 12),
           ),
           SizedBox(height: 4),
-          Text('Clase(s): ${asesoria.clasesNombres!.join(", ") + "."}',
+          Text('Clase: ${asesoria.clase}',
               textAlign: TextAlign.left,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,

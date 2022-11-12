@@ -57,3 +57,14 @@ void showSnack(
     duration: Duration(seconds: durationInSeconds),
   ));
 }
+
+bool isNumeric(String s) {
+  if (s == null) {
+    return false;
+  }
+  return double.tryParse(s) != null;
+}
+
+String dayMonthYear(DateTime d) {
+  return "${d.day.toString()}/${d.month.toString()}/${d.year.toString().substring(2)}";
+}

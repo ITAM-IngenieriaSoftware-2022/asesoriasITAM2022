@@ -121,9 +121,7 @@ class _RegistrationState extends State<Registration> {
     usuario.nombre = "Tu Nombre";
     usuario.apellido = "Tu Apellido";
     usuario.carreras = [];
-    usuario.instagram = "";
-    usuario.twitter = "";
-    usuario.facebook = "";
+    usuario.tel = "";
     usuario.bio = "";
     usuario.grupos = {};
     usuario.clases = {};

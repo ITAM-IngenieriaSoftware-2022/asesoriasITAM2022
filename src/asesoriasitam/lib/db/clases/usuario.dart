@@ -1,6 +1,6 @@
 class Usuario {
   late String? uid, correo, nombre, apellido, foto;
-  late String? instagram, twitter, facebook, bio;
+  late String? tel, bio;
   late List<String>? carreras;
 
   late Map<String, dynamic>? grupos;
@@ -13,9 +13,7 @@ class Usuario {
       this.nombre,
       this.apellido,
       this.carreras,
-      this.instagram,
-      this.twitter,
-      this.facebook,
+      this.tel,
       this.bio,
       this.grupos,
       this.clases,
@@ -38,9 +36,7 @@ class Usuario {
     data["nombre"] = usuario.nombre;
     data["apellido"] = usuario.apellido;
     data["carreras"] = usuario.carreras;
-    data["instagram"] = usuario.instagram;
-    data["facebook"] = usuario.facebook;
-    data["twitter"] = usuario.twitter;
+    data["tel"] = usuario.tel;
     data["bio"] = usuario.bio;
     data["grupos"] = usuario.grupos;
     data["clases"] = usuario.clases;
@@ -59,9 +55,7 @@ class Usuario {
     this.apellido = mapData["apellido"];
     this.carreras =
         mapData["carreras"] != null ? List.from(mapData["carreras"]) : [];
-    this.instagram = mapData["instagram"];
-    this.facebook = mapData["facebook"];
-    this.twitter = mapData["twitter"];
+    this.tel = mapData["tel"];
     this.bio = mapData["bio"];
     this.grupos = mapData["grupos"];
     this.clases = mapData["clases"];
