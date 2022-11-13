@@ -20,7 +20,12 @@ Widget comentarioTile(
           Text(dayMonthYear(comentario.subido!))
         ],
       ),
-      subtitle: Text(comentario.texto ?? "-"),
+      subtitle: Column(
+        children: [
+          Text(comentario.texto ?? "-"),
+          Text(comentario.recomiendo! ? "Recomiendo" : "No recomiendo")
+        ],
+      ),
     ),
   );
 }

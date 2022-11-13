@@ -36,6 +36,14 @@ class MyApp extends StatelessWidget {
         title: 'Asesorias ITAM',
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
+        // Quita scrollbar globalmente
+        builder: (context, child) {
+          return ScrollConfiguration(
+            behavior:
+                ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            child: child!,
+          );
+        },
         home: AuthenticationWrapper(),
       ),
     );

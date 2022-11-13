@@ -54,7 +54,7 @@ class GeneralPaginatedListView extends StatefulWidget {
     this.listViewHeight,
     this.first = 15,
     this.next = 10,
-    this.before,
+    this.before = const [],
     this.after,
   }) : super(key: key);
 
@@ -137,25 +137,9 @@ class _GeneralPaginatedListViewState extends State<GeneralPaginatedListView> {
         child: Text("UnU\nSe produjo un error...perdon toy chiquito"),
       );
     } else if (!_hasDocs) {
-      return Center(
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-            Center(
-                child: Padding(
-              padding: const EdgeInsets.all(64.0),
-              child: Column(
-                children: [
-                  Text("UnU",
-                      style: TextStyle(
-                          fontSize: 50, color: Theme.of(context).hintColor)),
-                  Text(widget.noDataMessage,
-                      style: TextStyle(color: Theme.of(context).hintColor)),
-                ],
-              ),
-            ))
-          ],
-        ),
+      return ListView(
+        scrollDirection: widget.scrollDirection,
+        children: widget.before! + [_noDataListView()],
       );
     } else {
       return Container(
@@ -175,8 +159,6 @@ class _GeneralPaginatedListViewState extends State<GeneralPaginatedListView> {
             return true;
           },
           child: ListView.builder(
-            //physics: NeverScrollableScrollPhysics(),
-            //shrinkWrap: true,
             scrollDirection: widget.scrollDirection,
             itemCount: _results.length +
                 (widget.before != null ? widget.before!.length : 0),
@@ -202,5 +184,28 @@ class _GeneralPaginatedListViewState extends State<GeneralPaginatedListView> {
         ),
       );
     }
+  }
+
+  Widget _noDataListView() {
+    return Center(
+      child: ListView(
+        shrinkWrap: true,
+        children: [
+          Center(
+              child: Padding(
+            padding: const EdgeInsets.all(64.0),
+            child: Column(
+              children: [
+                Text("UnU",
+                    style: TextStyle(
+                        fontSize: 50, color: Theme.of(context).hintColor)),
+                Text(widget.noDataMessage,
+                    style: TextStyle(color: Theme.of(context).hintColor)),
+              ],
+            ),
+          ))
+        ],
+      ),
+    );
   }
 }

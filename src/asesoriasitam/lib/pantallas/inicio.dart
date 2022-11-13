@@ -1,9 +1,16 @@
 import 'package:asesoriasitam/db/auth_services.dart';
+import 'package:asesoriasitam/db/clases/asesoria.dart';
 import 'package:asesoriasitam/db/clases/usuario.dart';
+import 'package:asesoriasitam/db/inicio_bloc.dart';
 import 'package:asesoriasitam/global.dart';
+import 'package:asesoriasitam/palette.dart';
 import 'package:asesoriasitam/pantallas/asesorias/anuncia_asesoria.dart';
+import 'package:asesoriasitam/pantallas/clases_de_depto.dart';
 import 'package:asesoriasitam/pantallas/perfil/perfil.dart';
 import 'package:asesoriasitam/utils/functionality.dart';
+import 'package:asesoriasitam/utils/usefulWidgets.dart';
+import 'package:asesoriasitam/widgets/cards/aviso.dart';
+import 'package:asesoriasitam/widgets/cards/cards.dart';
 
 import 'package:asesoriasitam/widgets/userAvatar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,6 +29,13 @@ class _InicioState extends State<Inicio> {
 
   //UI controllers
   bool _loading = true;
+
+  //Aviso
+  AvisoCard? _avisoCard;
+
+  // Listas
+  List<Asesoria> mejoresAsesorias = [];
+
   @override
   void initState() {
     super.initState();
@@ -32,6 +46,8 @@ class _InicioState extends State<Inicio> {
   //can call descubre utils directly
   getData() async {
     await getCurrentUser();
+    getAviso();
+    getMejoresAsesorias();
     setState(() {
       _loading = false;
     });
@@ -52,6 +68,30 @@ class _InicioState extends State<Inicio> {
     }
   }
 
+  getMejoresAsesorias() async {
+    try {
+      List<Asesoria> temp = await InicioUtils().getMejoresAsesorias(20);
+      setState(() {
+        mejoresAsesorias = temp;
+        print(mejoresAsesorias);
+      });
+    } catch (e) {
+      print('error getting mejores asesorias');
+      print(e);
+    }
+  }
+
+  getAviso() async {
+    try {
+      AvisoCard _temp = await InicioUtils().getAvisoCard();
+      setState(() {
+        _avisoCard = _temp;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   getListViewData() async {}
 
   @override
@@ -61,7 +101,7 @@ class _InicioState extends State<Inicio> {
         title: Text("Asesorias ITAM"),
         centerTitle: true,
       ),
-      body: _mainColumn(context),
+      body: CenteredConstrainedBox(maxWidth: 750, child: _mainColumn(context)),
       drawer: Drawer(child: usuario == null ? Container() : _showDrawer()),
     );
   }
@@ -83,8 +123,36 @@ class _InicioState extends State<Inicio> {
         ? _loadingScreen()
         : ListView(
             children: [
-              Text("Hola ${usuario?.nombre},"),
-              SizedBox(height: 36),
+              SizedBox(height: 32),
+              //Hola
+              _categoryTitle("Hola ${usuario?.nombre},"),
+              //Message Card
+              _avisoCard != null
+                  ? CenteredConstrainedBox(
+                      child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
+                          child: _avisoCard),
+                    )
+                  : Container(),
+              // Busca por departamento
+              _categoryTitle("Encuentra asesorias por clase"),
+              Center(child: deptoChipWrap()),
+
+              // Mejores asesorias
+              _categoryTitle("Asesorias más recomendadas"),
+              Center(
+                child: Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: mejoresAsesorias
+                      .map((e) => asesoriaCard(e, 250, 150, context))
+                      .toList(),
+                ),
+              ),
+              SizedBox(
+                height: 48,
+              )
             ],
           );
   }
@@ -161,6 +229,46 @@ class _InicioState extends State<Inicio> {
       onTap: () {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => pageToPush));
+      },
+    );
+  }
+
+  Widget _categoryTitle(String s) {
+    return Padding(
+        padding: const EdgeInsets.only(top: 16.0, left: 24, bottom: 16),
+        child: Text(s,
+            style: Theme.of(context)
+                .textTheme
+                .headline6) //TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+        );
+  }
+
+  Widget deptoChipWrap() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: Global.departamentos
+            .map((depto) => _buildChip(depto)) //Color(e.color).withOpacity(1)))
+            .toList(),
+      ),
+    );
+  }
+
+  Widget _buildChip(String depto) {
+    //, Color color) {
+    return ActionChip(
+      key: Key(depto),
+      labelPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+      label: Text(
+        depto,
+        style: TextStyle(color: Colors.white),
+      ),
+      backgroundColor: Palette.mainGreen, //color.withOpacity(0.8),
+      onPressed: () {
+        print("Se selecciono el depto $depto");
+        goto(context, ClasesDepto(depto: depto));
       },
     );
   }

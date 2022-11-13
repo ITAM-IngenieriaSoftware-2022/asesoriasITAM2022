@@ -1,19 +1,29 @@
-import 'dart:io';
-
 import 'package:asesoriasitam/db/clases/asesoria.dart';
 import 'package:asesoriasitam/db/clases/comentario.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'clases/usuario.dart';
 
 class AsesoriaBloc {
   final userRef = FirebaseFirestore.instance.collection("usuarios");
   final asesoriasRef = FirebaseFirestore.instance.collection("asesorias");
+  final claseRef = FirebaseFirestore.instance.collection("clases");
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
 
   Future<void> subirAsesoria({required Asesoria asesoria}) async {
-    await asesoriasRef.doc(asesoria.uid).set(asesoria.toMap(asesoria));
+    //await asesoriasRef.doc(asesoria.uid).set(asesoria.toMap(asesoria));
+    DocumentReference asesoriaDoc = asesoriasRef.doc(asesoria.uid);
+    DocumentReference claseDoc = claseRef.doc(asesoria.clase);
+
+    return FirebaseFirestore.instance.runTransaction((transaction) async {
+      // Subimos la asesoria
+      transaction.set(asesoriaDoc, asesoria.toMap(asesoria));
+
+      // Actualizamos clasesUid de la clase correspondiente
+      transaction.update(claseDoc, {
+        'asesoriasUids': FieldValue.arrayUnion([asesoria.uid])
+      });
+    });
   }
 
   Future<Asesoria> getAsesoria({required String uid}) async {
@@ -23,7 +33,19 @@ class AsesoriaBloc {
   }
 
   Future<void> borrarAsesoria({required Asesoria asesoria}) async {
-    await asesoriasRef.doc(asesoria.uid).delete();
+    //await asesoriasRef.doc(asesoria.uid).delete();
+    DocumentReference asesoriaDoc = asesoriasRef.doc(asesoria.uid);
+    DocumentReference claseDoc = claseRef.doc(asesoria.clase);
+
+    return FirebaseFirestore.instance.runTransaction((transaction) async {
+      // Borramos la asesoria
+      transaction.delete(asesoriaDoc);
+
+      // Actualizamos clasesUid de la clase correspondiente
+      transaction.update(claseDoc, {
+        'asesoriasUids': FieldValue.arrayRemove([asesoria.uid])
+      });
+    });
   }
 
   Future<void> updateAsesoria({required Asesoria asesoria}) async {
@@ -121,6 +143,25 @@ class AsesoriaBloc {
     try {
       final QuerySnapshot doc =
           await asesoriasRef.where('porUsuario', isEqualTo: usuarioUid).get();
+
+      for (QueryDocumentSnapshot d in doc.docs) {
+        Map<String, dynamic> data = d.data() as Map<String, dynamic>;
+        out.add(Asesoria.fromMap(data));
+      }
+      return out;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // Ordenadas por recomendadasPorN por defecto
+  Future<List<Asesoria>> getAsesoriasByClase({required String claseUid}) async {
+    List<Asesoria> out = [];
+    try {
+      final QuerySnapshot doc = await asesoriasRef
+          .where('clase', isEqualTo: claseUid)
+          .orderBy('recomendadoPorN', descending: true)
+          .get();
 
       for (QueryDocumentSnapshot d in doc.docs) {
         Map<String, dynamic> data = d.data() as Map<String, dynamic>;
