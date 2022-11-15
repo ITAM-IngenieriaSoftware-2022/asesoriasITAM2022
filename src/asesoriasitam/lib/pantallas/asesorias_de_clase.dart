@@ -10,6 +10,7 @@ import 'package:asesoriasitam/palette.dart';
 import 'package:asesoriasitam/utils/usefulWidgets.dart';
 import 'package:asesoriasitam/widgets/cards/aviso.dart';
 import 'package:asesoriasitam/widgets/cards/cards.dart';
+import 'package:asesoriasitam/widgets/screens/unu.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -27,12 +28,11 @@ class _AsesoriasClaseState extends State<AsesoriasClase> {
   FirebaseAuth auth = FirebaseAuth.instance;
   Usuario? usuario;
 
-  Clase? clase;
   String claseUid;
 
   List<Asesoria> asesorias = [];
 
-  //UI controllers
+  // UI controllers
   bool _loading = true;
   bool gotAsesorias = false;
   bool gotClase = false;
@@ -46,29 +46,12 @@ class _AsesoriasClaseState extends State<AsesoriasClase> {
     getData();
   }
 
-  //can call descubre utils directly
   getData() async {
     await getCurrentUser();
-    _getClase();
-    _getAsesoriaDeClase();
+    await _getAsesoriaDeClase();
     setState(() {
       _loading = false;
     });
-  }
-
-  Future<void> _getClase() async {
-    print("Intentando conseguir clase $claseUid...");
-    try {
-      Clase _temp = await ClaseBloc().getClaseFromDB(uid: claseUid);
-      setState(() {
-        clase = _temp;
-        gotClase = true;
-        print("Got clase $claseUid");
-      });
-    } catch (e) {
-      print("Error consiguiendo clase $claseUid");
-      print(e);
-    }
   }
 
   Future<void> _getAsesoriaDeClase() async {
@@ -132,7 +115,11 @@ class _AsesoriasClaseState extends State<AsesoriasClase> {
     content.addAll(asesorias.map((e) => asesoriaCard(e, 250, 150, context)));
     return _loading
         ? _loadingScreen()
-        : CenteredConstrainedBox(child: ListView(children: content));
+        : CenteredConstrainedBox(
+            child: asesorias.isEmpty
+                ? unuColumn(
+                    context: context, texto: 'No hay asesorias para esta clase')
+                : ListView(children: content));
   }
 
   Widget _categoryTitle(String s) {

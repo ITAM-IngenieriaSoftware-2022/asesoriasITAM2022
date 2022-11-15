@@ -20,11 +20,19 @@ Widget comentarioTile(
           Text(dayMonthYear(comentario.subido!))
         ],
       ),
-      subtitle: Column(
-        children: [
-          Text(comentario.texto ?? "-"),
-          Text(comentario.recomiendo! ? "Recomiendo" : "No recomiendo")
-        ],
+      subtitle: Padding(
+        padding: const EdgeInsets.only(bottom: 16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Text(comentario.texto ?? "-",
+                  style: TextStyle(color: Colors.black)),
+            ),
+            Text(comentario.recomiendo! ? "Recomiendo" : "No recomiendo")
+          ],
+        ),
       ),
     ),
   );

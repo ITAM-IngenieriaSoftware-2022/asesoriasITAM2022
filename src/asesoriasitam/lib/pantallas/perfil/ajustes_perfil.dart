@@ -3,6 +3,7 @@ import 'package:asesoriasitam/db/clases/usuario.dart';
 import 'package:asesoriasitam/global.dart';
 import 'package:asesoriasitam/utils/functionality.dart';
 import 'package:asesoriasitam/pantallas/auth/login.dart';
+import 'package:asesoriasitam/utils/usefulWidgets.dart';
 import 'package:asesoriasitam/widgets/textInput.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -73,21 +74,23 @@ class _AjustesPerfilState extends State<AjustesPerfil> {
   }
 
   Widget _mainBody() {
-    return Column(
-      children: [
-        _desactivarTile(),
-        ListTile(
-          title: Text("Términos y Condiciones"),
-          onTap: () => launchURL(Global.terminosURL),
-        ),
-        ListTile(
-          title: Text("Aviso de Privacidad"),
-          onTap: () => launchURL(Global.privacidadURL),
-        ),
-        AboutListTile(
-          applicationVersion: "Beta",
-        )
-      ],
+    return CenteredConstrainedBox(
+      child: Column(
+        children: [
+          _desactivarTile(),
+          ListTile(
+            title: Text("Términos y Condiciones"),
+            onTap: () => launchURL(Global.terminosURL),
+          ),
+          ListTile(
+            title: Text("Aviso de Privacidad"),
+            onTap: () => launchURL(Global.privacidadURL),
+          ),
+          AboutListTile(
+            applicationVersion: "Beta",
+          )
+        ],
+      ),
     );
   }
 

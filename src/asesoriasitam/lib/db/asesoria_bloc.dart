@@ -138,11 +138,20 @@ class AsesoriaBloc {
   }
 
   Future<List<Asesoria>> getAsesoriasByUsuario(
-      {required String usuarioUid}) async {
+      {required String usuarioUid, bool onlyVisible = true}) async {
     List<Asesoria> out = [];
+    QuerySnapshot doc;
     try {
-      final QuerySnapshot doc =
-          await asesoriasRef.where('porUsuario', isEqualTo: usuarioUid).get();
+      if (onlyVisible) {
+        doc = await asesoriasRef
+            .where('porUsuario', isEqualTo: usuarioUid)
+            .where('visible', isEqualTo: true)
+            .where('baneado', isEqualTo: false)
+            .get();
+      } else {
+        doc =
+            await asesoriasRef.where('porUsuario', isEqualTo: usuarioUid).get();
+      }
 
       for (QueryDocumentSnapshot d in doc.docs) {
         Map<String, dynamic> data = d.data() as Map<String, dynamic>;

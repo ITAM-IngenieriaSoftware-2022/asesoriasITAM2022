@@ -187,7 +187,7 @@ class _InicioState extends State<Inicio> {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  "${shortenNumber(usuario!.chems!)} chems  ${usuario!.semestre} semestre",
+                  "${usuario!.semestre} semestre",
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
               ],
@@ -204,7 +204,7 @@ class _InicioState extends State<Inicio> {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: ListTile(
-                title: Text("Cerrar Sesion",
+                title: Text("Cerrar Sesión",
                     style: Theme.of(context).textTheme.headline6!),
                 minLeadingWidth: 0,
                 onTap: () {

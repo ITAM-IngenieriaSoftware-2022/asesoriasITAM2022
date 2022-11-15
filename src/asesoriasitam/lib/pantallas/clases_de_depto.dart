@@ -6,17 +6,12 @@ import 'package:asesoriasitam/db/clases/usuario.dart';
 import 'package:asesoriasitam/db/inicio_bloc.dart';
 import 'package:asesoriasitam/global.dart';
 import 'package:asesoriasitam/palette.dart';
-import 'package:asesoriasitam/pantallas/asesorias/anuncia_asesoria.dart';
 import 'package:asesoriasitam/pantallas/asesorias_de_clase.dart';
-import 'package:asesoriasitam/pantallas/perfil/perfil.dart';
 import 'package:asesoriasitam/utils/functionality.dart';
 import 'package:asesoriasitam/utils/usefulWidgets.dart';
 import 'package:asesoriasitam/widgets/cards/aviso.dart';
-import 'package:asesoriasitam/widgets/cards/cards.dart';
-
-import 'package:asesoriasitam/widgets/userAvatar.dart';
+import 'package:asesoriasitam/widgets/screens/unu.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -57,8 +52,7 @@ class _ClasesDeptoState extends State<ClasesDepto> {
   //can call descubre utils directly
   getData() async {
     await getCurrentUser();
-    _getClasesDeDepto();
-    //getMejoresAsesorias();
+    await _getClasesDeDepto();
     setState(() {
       _loading = false;
     });
@@ -144,7 +138,12 @@ class _ClasesDeptoState extends State<ClasesDepto> {
         )));
     return _loading
         ? _loadingScreen()
-        : CenteredConstrainedBox(child: ListView(children: content));
+        : CenteredConstrainedBox(
+            child: clasesDeDepto.isEmpty
+                ? unuColumn(
+                    context: context,
+                    texto: 'No se encontraron clases para este departamento')
+                : ListView(children: content));
   }
 
   Widget _categoryTitle(String s) {

@@ -18,6 +18,8 @@ class InicioUtils {
     List<Asesoria> out = [];
     try {
       QuerySnapshot response = await asesoriaRef
+          .where('visible', isEqualTo: true)
+          .where('baneado', isEqualTo: false)
           .orderBy('recomendadoPorN', descending: true)
           .limit(cuantos)
           .get();
@@ -41,6 +43,8 @@ class InicioUtils {
     try {
       QuerySnapshot response = await asesoriaRef
           .where('depto', isEqualTo: depto)
+          .where('visible', isEqualTo: true)
+          .where('baneado', isEqualTo: false)
           .orderBy('recomendadoPorN', descending: true)
           .limit(cuantos)
           .get();

@@ -120,8 +120,8 @@ class _PerfilState extends State<Perfil> {
   _getAsesorias() async {
     asesorias = [];
     try {
-      List<Asesoria> nuevos =
-          await AsesoriaBloc().getAsesoriasByUsuario(usuarioUid: usuario!.uid!);
+      List<Asesoria> nuevos = await AsesoriaBloc()
+          .getAsesoriasByUsuario(usuarioUid: usuario!.uid!, onlyVisible: false);
       setState(() {
         asesorias = nuevos;
         print("GOT asesorias");
@@ -278,7 +278,7 @@ class _PerfilState extends State<Perfil> {
             ),
             SizedBox(height: 8),
             Text(
-              "${shortenNumber(usuario!.chems!)} chems  ${usuario!.semestre} semestre",
+              "${usuario!.semestre} semestre",
               style: TextStyle(fontWeight: FontWeight.w500, color: scaffColor),
             ),
             usuario?.bio != null && usuario?.bio?.trim() != ""
