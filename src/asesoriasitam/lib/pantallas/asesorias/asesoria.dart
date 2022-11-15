@@ -168,14 +168,20 @@ class _AsesoriaPageState extends State<AsesoriaPage> {
                       )),
                 ),
                 // Clase
+                SizedBox(height: 16),
+                Text(
+                  "Para",
+                  style:
+                      TextStyle(color: Colors.white, fontSize: 18), //scaffColor
+                ),
                 SizedBox(height: 8),
                 Text(
-                  "Para " + asesoria.clase!,
+                  asesoria.clase!,
                   style:
                       TextStyle(color: Colors.white, fontSize: 18), //scaffColor
                 ),
                 SizedBox(
-                  height: 8,
+                  height: 16,
                 ),
                 // Precio
                 Text(
@@ -184,39 +190,26 @@ class _AsesoriaPageState extends State<AsesoriaPage> {
                       TextStyle(color: Colors.white, fontSize: 18), //scaffColor
                 ),
                 SizedBox(
-                  height: 8,
+                  height: 16,
                 ),
                 // asesoria.recomendadoPorN > 0
                 true
                     ? Text(
-                        asesoria.recomendadoPorN.toString() +
-                            " recomendaciones",
+                        "Recomiendaciones: " +
+                            ((asesoria.recomendadoPorN! > 0) ? "+" : "") +
+                            asesoria.recomendadoPorN.toString(),
                         style: TextStyle(
                           color: Colors.white, //scaffColor
                           fontSize: 18,
                         ),
                       )
                     : Container(),
+                SizedBox(height: 8),
                 InkWell(
                     onTap: () =>
                         goto(context, ComentarAsesoriaPage(asesoria: asesoria)),
-                    /*async {
-                      try {
-                        _recomendado
-                            ? await AsesoriaBloc().desrecomendarAsesoria(
-                                asesoria: asesoria, usuario: usuario)
-                            : await AsesoriaBloc().recomendarAsesoria(
-                                asesoria: asesoria, usuario: usuario);
-    
-                        _update();
-                      } catch (e) {
-                        print(e);
-                      }
-                    },*/
                     child: Text(
-                      _recomendado
-                          ? "Dejar de recomendar"
-                          : "Recomienda esta asesoría",
+                      "Recomienda",
                       style: TextStyle(
                         color: Palette.mainYellow,
                         fontSize: 18,
@@ -239,7 +232,10 @@ class _AsesoriaPageState extends State<AsesoriaPage> {
               _sectionTitle(title: "Descripción"),
               Padding(
                 padding: EdgeInsets.all(16),
-                child: Text(asesoria.detalles ?? "No hay detalles"),
+                child: Text(
+                  asesoria.detalles ?? "No hay detalles",
+                  maxLines: null,
+                ),
               ),
               _sectionTitle(title: "Horarios"),
               _horario(),
@@ -337,6 +333,7 @@ class _AsesoriaPageState extends State<AsesoriaPage> {
     );
   }
 
+  /*
   Widget _horario() {
     List<Widget> out = [];
     double fontSize = 18;
@@ -362,5 +359,19 @@ class _AsesoriaPageState extends State<AsesoriaPage> {
       ]));
     }
     return CenteredConstrainedBox(maxWidth: 150, child: Column(children: out));
+  }
+  */
+  Widget _horario() {
+    String out = "";
+    double fontSize = 18;
+    for (String dia in diasOrdenados) {
+      String hrs = asesoria.horario![dia];
+      if (hrs.isEmpty) continue;
+      out += "\n$dia: $hrs";
+    }
+    return Text(
+      out,
+      style: TextStyle(fontSize: fontSize),
+    );
   }
 }
