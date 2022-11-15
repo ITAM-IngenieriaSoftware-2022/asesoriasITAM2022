@@ -240,6 +240,9 @@ class _AsesoriaPageState extends State<AsesoriaPage> {
               _sectionTitle(title: "Horarios"),
               _horario(),
 
+              _sectionTitle(title: "Dónde"),
+              _lugares(),
+
               //Contacto
               _sectionTitle(title: "Contacto"),
               asesoria.wa != null
@@ -333,34 +336,6 @@ class _AsesoriaPageState extends State<AsesoriaPage> {
     );
   }
 
-  /*
-  Widget _horario() {
-    List<Widget> out = [];
-    double fontSize = 18;
-    for (String dia in diasOrdenados) {
-      String hrs = asesoria.horario![dia];
-      if (hrs.isEmpty) continue;
-      out.add(Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Column(children: [
-          Text(
-            dia,
-            style: TextStyle(fontSize: fontSize),
-          )
-        ]),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(
-              hrs,
-              style: TextStyle(fontSize: fontSize),
-            )
-          ],
-        )
-      ]));
-    }
-    return CenteredConstrainedBox(maxWidth: 150, child: Column(children: out));
-  }
-  */
   Widget _horario() {
     String out = "";
     double fontSize = 18;
@@ -369,6 +344,15 @@ class _AsesoriaPageState extends State<AsesoriaPage> {
       if (hrs.isEmpty) continue;
       out += "\n$dia: $hrs";
     }
+    return Text(
+      out,
+      style: TextStyle(fontSize: fontSize),
+    );
+  }
+
+  Widget _lugares() {
+    double fontSize = 18;
+    String out = asesoria.lugares!.join(', ');
     return Text(
       out,
       style: TextStyle(fontSize: fontSize),

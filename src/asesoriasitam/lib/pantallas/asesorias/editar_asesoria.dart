@@ -164,6 +164,7 @@ class _EditAsesoriaPageState extends State<EditAsesoriaPage> {
               onChanged: (val) => asesoria.horario?[e] = val,
               onSaved: (val) => asesoria.horario?[e] = val,
               initialText: asesoria.horario?[e],
+              maxLength: 42,
             ))
         .toList());
     return Column(children: content);

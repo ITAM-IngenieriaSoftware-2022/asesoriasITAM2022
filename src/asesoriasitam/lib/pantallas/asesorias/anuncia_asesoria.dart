@@ -83,6 +83,7 @@ class _AnunciaAsesoriaState extends State<AnunciaAsesoria> {
       setState(() {
         _missingFields = true;
       });
+      showSnack(context: context, text: "Revisa los datos ingresados");
     }
   }
 
@@ -402,6 +403,7 @@ class _AnunciaAsesoriaState extends State<AnunciaAsesoria> {
               labelText: "Horario para $e. Ej. 9:00-11:00, 14:00-15:00",
               onChanged: (val) => asesoria.horario?[e] = val,
               onSaved: (val) => asesoria.horario?[e] = val,
+              maxLength: 42,
             ))
         .toList());
     return Step(
