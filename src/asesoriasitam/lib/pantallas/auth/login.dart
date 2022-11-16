@@ -68,8 +68,18 @@ class _LoginState extends State<Login> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text('Asesorias ITAM'),
-                      // _image(),
+                      Text(
+                        'Asesorias ITAM',
+                        style:
+                            TextStyle(color: Palette.mainGreen, fontSize: 48),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        'Encuentra y anuncia asesorias de calidad',
+                        style:
+                            TextStyle(color: Palette.mainGreen, fontSize: 16),
+                      ),
+                      SizedBox(height: 32),
                       CustomTextInput(
                         labelText: "Correo",
                         onSaved: (val) => _email = val!,
@@ -92,14 +102,12 @@ class _LoginState extends State<Login> {
                         isSubmitting: _isSubmitting,
                       ),
                       SizedBox(height: 16),
-
                       InkWell(
                           onTap: () => goto(context, RecoveryPassword()),
                           child: Text("Recuperar Contraseña",
                               style: TextStyle(
                                   color: Palette.mainGreen, fontSize: 14))),
-
-                      SizedBox(height: 2),
+                      SizedBox(height: 8),
                       InkWell(
                           onTap: () => goto(context, Registration()),
                           child: Text(

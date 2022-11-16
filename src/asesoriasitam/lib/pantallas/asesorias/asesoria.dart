@@ -205,16 +205,18 @@ class _AsesoriaPageState extends State<AsesoriaPage> {
                       )
                     : Container(),
                 SizedBox(height: 8),
-                InkWell(
-                    onTap: () =>
-                        goto(context, ComentarAsesoriaPage(asesoria: asesoria)),
-                    child: Text(
-                      "Recomienda",
-                      style: TextStyle(
-                        color: Palette.mainYellow,
-                        fontSize: 18,
-                      ),
-                    )),
+                asesoria.porUsuario != usuario.uid
+                    ? InkWell(
+                        onTap: () => goto(
+                            context, ComentarAsesoriaPage(asesoria: asesoria)),
+                        child: Text(
+                          "Recomienda",
+                          style: TextStyle(
+                            color: Palette.mainYellow,
+                            fontSize: 18,
+                          ),
+                        ))
+                    : Container(),
 
                 SizedBox(
                   height: 24,
@@ -245,7 +247,7 @@ class _AsesoriaPageState extends State<AsesoriaPage> {
 
               //Contacto
               _sectionTitle(title: "Contacto"),
-              asesoria.wa != null
+              asesoria.wa != null && (asesoria.wa ?? "").trim().isNotEmpty
                   ? ListTile(
                       title: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -268,7 +270,7 @@ class _AsesoriaPageState extends State<AsesoriaPage> {
                       onTap: () => launchURL(asesoria.wa!),
                     )
                   : Container(),
-              asesoria.tel != null
+              asesoria.tel != null && (asesoria.tel ?? "").trim().isNotEmpty
                   ? ListTile(
                       title: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -285,7 +287,7 @@ class _AsesoriaPageState extends State<AsesoriaPage> {
                       onTap: () {},
                     )
                   : Container(),
-              asesoria.mail != null
+              asesoria.mail != null && (asesoria.mail ?? "").trim().isNotEmpty
                   ? ListTile(
                       title: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -347,6 +349,7 @@ class _AsesoriaPageState extends State<AsesoriaPage> {
     return Text(
       out,
       style: TextStyle(fontSize: fontSize),
+      textAlign: TextAlign.justify,
     );
   }
 

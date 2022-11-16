@@ -255,9 +255,9 @@ class _RegistrationState extends State<Registration> {
           SizedBox(height: 24),
           Text(
             "¡Bienvenidx a Asesorias ITAM!",
-            style: Theme.of(context).textTheme.headline6,
+            style: TextStyle(color: Palette.mainGreen, fontSize: 32),
           ),
-          SizedBox(height: 8),
+          SizedBox(height: 32),
           SmallActionButton(
             text: "Ir a Inicio",
             isSubmitting: _relogging,
@@ -405,7 +405,7 @@ class _RegistrationState extends State<Registration> {
                               style: _tappableStyle),
                           TextSpan(
                               text:
-                                  'y autorizo el uso de mis datos de acuerdo al ',
+                                  ' y autorizo el uso de mis datos de acuerdo al ',
                               style: _normalStyle),
                           TextSpan(
                               text: 'Aviso de Privacidad.',
