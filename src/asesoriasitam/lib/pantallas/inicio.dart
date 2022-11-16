@@ -244,6 +244,7 @@ class _InicioState extends State<Inicio> {
   }
 
   Widget deptoChipWrap() {
+    print(Colors.green);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
       child: Wrap(
@@ -265,7 +266,8 @@ class _InicioState extends State<Inicio> {
         depto,
         style: TextStyle(color: Colors.white),
       ),
-      backgroundColor: Palette.mainGreen, //color.withOpacity(0.8),
+      backgroundColor: Color(Global.coloresDepto[
+          depto]!), // Palette.mainGreen, //color.withOpacity(0.8),
       onPressed: () {
         print("Se selecciono el depto $depto");
         goto(context, ClasesDepto(depto: depto));
