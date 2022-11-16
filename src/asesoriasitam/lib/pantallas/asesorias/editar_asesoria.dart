@@ -4,6 +4,7 @@ import 'package:asesoriasitam/db/asesoria_bloc.dart';
 import 'package:asesoriasitam/db/clases/asesoria.dart';
 import 'package:asesoriasitam/db/clases/lugar.dart';
 import 'package:asesoriasitam/db/lugar_bloc.dart';
+import 'package:asesoriasitam/palette.dart';
 import 'package:asesoriasitam/utils/functionality.dart';
 import 'package:asesoriasitam/widgets/textInput.dart';
 import 'package:file_picker/file_picker.dart';
@@ -182,7 +183,8 @@ class _EditAsesoriaPageState extends State<EditAsesoriaPage> {
           spacing: 8,
           runSpacing: 8,
           children: lugares
-              .map((e) => _buildChip(e.nombre, Color(e.color).withOpacity(1)))
+              .map((e) => _buildChip(e.nombre,
+                  Palette.mainGreen)) //Color(e.color).withOpacity(1)))
               .toList(),
         ),
       );

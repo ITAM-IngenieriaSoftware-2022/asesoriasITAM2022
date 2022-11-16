@@ -39,3 +39,21 @@ lib: la carpeta con el código (todo lo demás es autogenerado)
 
 ```
 
+## Cómo deployar
+
+Desde /ser/asesoriasitam:
+```
+firebase init
+```
+
+y seleccionar Hosting y 'build/web' como folder
+
+
+```
+firebase build web
+```
+
+```
+firebase deploy
+```
+

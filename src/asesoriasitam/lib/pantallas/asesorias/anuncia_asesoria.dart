@@ -436,7 +436,8 @@ class _AnunciaAsesoriaState extends State<AnunciaAsesoria> {
           spacing: 8,
           runSpacing: 8,
           children: lugares
-              .map((e) => _buildChip(e.nombre, Color(e.color).withOpacity(1)))
+              .map((e) => _buildChip(e.nombre,
+                  Palette.mainGreen)) //Color(e.color).withOpacity(1)))
               .toList(),
         ),
       );
