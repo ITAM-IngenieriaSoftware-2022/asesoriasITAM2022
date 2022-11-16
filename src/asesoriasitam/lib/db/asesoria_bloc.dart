@@ -169,6 +169,8 @@ class AsesoriaBloc {
     try {
       final QuerySnapshot doc = await asesoriasRef
           .where('clase', isEqualTo: claseUid)
+          .where('visible', isEqualTo: true)
+          .where('baneado', isEqualTo: false)
           .orderBy('recomendadoPorN', descending: true)
           .get();
 
