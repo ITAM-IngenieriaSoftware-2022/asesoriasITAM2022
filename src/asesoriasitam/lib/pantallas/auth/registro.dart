@@ -501,7 +501,7 @@ class _RegistrationState extends State<Registration> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: CustomActionButton(
-                    text: "Registrate",
+                    text: "Regístrate",
                     onPressed: _submitCompletar,
                     isSubmitting: _isCompleting),
               ),

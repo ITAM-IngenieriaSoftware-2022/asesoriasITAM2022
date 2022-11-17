@@ -415,9 +415,8 @@ class _AnunciaAsesoriaState extends State<AnunciaAsesoria> {
 
   Step _lugaresStep() {
     List<Widget> content = [
-      _stepText(
-          "¿Qué horarios tienes disponibles para dar asesorias de esta clase?",
-          "Llena tu horario para cada día de la semana. Deja la caja vacía si no darás asesorías ese dia:"),
+      _stepText("¿Dónde darás tus asesorías?",
+          "Selecciona en dónde planeas dar tus asesorías"),
       SizedBox(height: 16),
       lugaresChipWrap(),
     ];

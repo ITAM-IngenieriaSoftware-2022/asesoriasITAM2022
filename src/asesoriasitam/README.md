@@ -50,7 +50,7 @@ y seleccionar Hosting y 'build/web' como folder
 
 
 ```
-firebase build web
+flutter build web
 ```
 
 ```
