@@ -1,5 +1,3 @@
-/data
-
 # Logs
 logs
 *.log
@@ -8,6 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 firebase-debug.log*
 firebase-debug.*.log*
+data-modular-info
 
 # Firebase cache
 .firebase/
@@ -66,3 +65,7 @@ node_modules/
 
 # dotenv environment variables file
 .env
+# flutter, ios, android runtime log
+flutter-log/
+src/android-gradle-log/
+SRC/IOS-runner-log/
