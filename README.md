@@ -44,3 +44,6 @@ Para contribuir al codigo seguir los siguientes pasos:
 
 ## Propuesta económica
 
+## Presentación
+[Click here mr.](https://docs.google.com/presentation/d/1Bu9jBGTcVGaqiuu9Snw94E8GHmIwlY1hy_BEB5NB3A4/edit#slide=id.p)
+
