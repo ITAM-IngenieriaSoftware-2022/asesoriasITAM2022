@@ -6,14 +6,11 @@ Proyecto final del equipo "BUENO" para la materia de Ing. de Software Otoño 202
 
 ## Requirements
 
-[Nuestro SRS ]https://github.com/emiliocantuc/proyectoFinalSoftware/blob/SRS/SRS.md)
-
+Aquí el SRS.
 
 ## Casos de uso
 
 [Caso de uso : Login](https://github.com/emiliocantuc/proyectoFinalSoftware/blob/main/Casos%20de%20uso%20Login.png)
-
-[Caso de uso : Buscar Asesoría](https://github.com/emiliocantuc/proyectoFinalSoftware/blob/main/Casos%20de%20uso-Buscar%20Asesor%C3%ADa.png)
 
 ## Plan de Calidad
 
@@ -30,7 +27,16 @@ La arquitectura que usamos es la de microservicios, ya que es la mejor adaptada 
 
 ## Metodología y justificación
 
+La metodología de desarrollo de software que decidimos usar para este proyecto fue SCRUM, la cual deriva de la metodología AGILE.
+Expondremos algunas de las razones por las que consideramos que esta metodologia sería la más idonea.
 
+Primero que nada, por la familiaridad. Debemos admitir que esta metodología ya la habíamos utilizado anteriormente en otra materia para desarrollar una aplicación.
+
+La segunda razón más importante fue la configuración del tiempo que disponíamos para desarrollar. Inicialmente, supimos que podríamos disponer de una reunión de duración moderada en la que pudimos acordar cuales features tendríamos que desarrollar y, sobre todo, que prioridad tomaría cada una. Esto se acomoda perfectamente en el marco de trabajo de un Backlog. Este backlog fue acordado por los miembros del equipo, y luego, se asignaron responsabilidades. Quedó acordado que Emilio sería el Scrum Master.
+
+Las reuniones SCRUM en las que nos notificabamos del progreso y obstáculos que íbamos enfrentando se acomodaron con naturalidad en los días viernes en los que teníamos clase. Ya sea durante los breaks, las conversaciones casuales o al final de la clase de Ingeniería de Software.
+
+Una tercera razón que terminó por aclarar la elección de metodología es que conocemos que SCRUM es adecuado para proyectos pequeños y de corta duración. También es más adecuado cuando todos los miembros del equipo tienen experiencia tanto en desarrollo colaborativo como en el cumplimiento de la metodología.
 
 ## Documentación para replicar
 
