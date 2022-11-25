@@ -8,6 +8,8 @@ Proyecto final del equipo "BUENO" para la materia de Ing. de Software Otoño 202
 
 ## Plan de Calidad
 
+
+
 ## Arquitectura y justificación
 
 La arquitectura que usamos es la de microservicios, ya que es la mejor adaptada al momento de desarrollar una aplicación web como esta. Por otro lado, decidimos esta arquitectura, ya que justo se pueden hacer distintos microservicios en nuestra app, por ejemplo: el momento de crear una asesoría, buscar asesorías, comprar asesorías entre otros servicios dados, además de que nuestro backend maneja una base de datos, la cual almacena toda la información necesaria para el uso de la página.
