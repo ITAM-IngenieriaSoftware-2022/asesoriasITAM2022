@@ -12,6 +12,8 @@ Aquí el SRS.
 
 [Caso de uso : Login](https://github.com/emiliocantuc/proyectoFinalSoftware/blob/main/Casos%20de%20uso%20Login.png)
 
+[Caso de uso : Login](https://github.com/emiliocantuc/proyectoFinalSoftware/blob/main/Casos%20de%20uso-Buscar%20Asesor%C3%ADa.png)
+
 [Caso de uso : Comentar Asesoría](https://github.com/emiliocantuc/proyectoFinalSoftware/blob/main/Casos%20de%20uso-Comentar%20Asesor%C3%ADa.png)
 
 ## Plan de Calidad
