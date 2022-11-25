@@ -6,7 +6,7 @@ Proyecto final del equipo "BUENO" para la materia de Ing. de Software Otoño 202
 
 ## Requirements
 
-[Aquí el SRS] (https://github.com/emiliocantuc/proyectoFinalSoftware/blob/main/SRS.md)
+[Aquí el SRS](https://github.com/emiliocantuc/proyectoFinalSoftware/blob/main/SRS.md)
 
 ## Casos de uso
 
