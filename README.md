@@ -6,6 +6,8 @@ Proyecto final del equipo "BUENO" para la materia de Ing. de Software Otoño 202
 
 ## Requirements
 
+Aquí el SRS (ya casí está).
+
 ## Plan de Calidad
 
 
