@@ -10,7 +10,12 @@ Aquí el SRS (ya casí está).
 
 ## Plan de Calidad
 
+En esta sección explicaremos ciertas características del producto que creemos que seran importantes tanto para los usuarios como para los desarrolladores para mantener la calidad.
+Queremos crear productos que sean exitosos, confiables y que duren la mayor cantidad de tiempo, es decir, se mantengan vigentes y útiles.
 
+Uno de los pilares seguidos para el desarrollo de Asesorías ITAM fue priorizar la integridad y corrección de la plataforma y sus servicios antes que su flexibilidad y adaptabilidad. Consideramos que esta preferencia garantiza mayor robustez, y por ende, responde a nuestro objetivo de garantizar confiabilidad.
+
+Ante este primer pilar contraponemos, sin embargo, una dedicación por la interoperabilidad y la portabilidad. Queremos garantizar que Asesorías ITAM este disponible libre de errores en las siguientes plataformas: Windows, Linux, MacOS, Android, iOS y Web.
 
 ## Arquitectura y justificación
 
