@@ -158,6 +158,9 @@ class GraceScrapper:
         # Scrapea las clases
         print("Scrappeando clases ...")
         clases=[]
+        # Las clases se guardaran en un diccionario con el formato: {classInfo, nombreDeLaMateria}
+        # Las clases se guardaran en un diccionario con el formato: {classInfo, nombreDeLaMateria}
+        
         for nombre in self.listaClases:
             info=self._getClaseInfo(requests.post(url=self.formURL,data={"s":self.s,"txt_materia":nombre}).text)
             clases.append(info)
