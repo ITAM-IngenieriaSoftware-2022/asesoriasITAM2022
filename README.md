@@ -43,7 +43,12 @@ Para contribuir al codigo seguir los siguientes pasos:
 **NOTA**: La organización del código está descrita en el README en `src/asesoriasitam/`.
 
 ## Propuesta económica
+Para **Asesorías ITAM ®** presentamos el siguiente modelo de negocios:
+1. Al ser un modelo de asesorías, buscamos crear una base de asesores y asesorados manteniendo una alta retención de ambos, por lo que ofreceríamos una suscripción para cada tipo de usuario:
+    - Asesor: Un cobro por comisión de su asesoría o bien un plan mensual de alrededor de 250 MXN. Ambas con acceso a la funcionalidades actuales y permitiendo seguir desarrollando y expandiendo para tener un sistema de videoconferencias, pizarron en linea, base de datos de información, etc...
+    - Asesorado: Un plan mensual de alrededor de 350MXN que le permitiría un número de asesorías a la semana, así como acceso a distintas funcionalidades exclusivas y orientadas a su aprendizaje.
+ 2. Al definirnos como una empresa de servicios escolares, buscamos que ser parte de las universidades y contribuir a satisfacer sus necesidades por lo que ofrecemos un modelo de contrato para implementar las asesorías de forma local, así como poner a disposición los recursos de la plataforma para profesores. Parte de esta renta tambien es desarrollar funcionalidad personalida para la institucipn que a través de un grupo de expertos en educación y docentes de la universidad.
 
 ## Presentación
-[Click here mr.](https://docs.google.com/presentation/d/1Bu9jBGTcVGaqiuu9Snw94E8GHmIwlY1hy_BEB5NB3A4/edit#slide=id.p)
+[Link a Google Docs de la presentación. Presiona y sorprendase Ms. Paulina](https://docs.google.com/presentation/d/1Bu9jBGTcVGaqiuu9Snw94E8GHmIwlY1hy_BEB5NB3A4/edit#slide=id.p)
 
