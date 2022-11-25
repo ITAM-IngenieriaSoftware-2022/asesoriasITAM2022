@@ -27,7 +27,7 @@ La arquitectura que usamos es la de microservicios, ya que es la mejor adaptada 
 
 ## Metodología y justificación
 
-## Código del proyecto
+
 
 ## Documentación para replicar
 
