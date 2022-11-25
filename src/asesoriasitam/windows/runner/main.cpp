@@ -18,6 +18,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   ::CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
 
   flutter::DartProject project(L"data");
+  // new console when running with a debugger.
+  // new console when running with a debugger.
+  // new console when running with a debugger.
+  // new console when running with a debugger.
 
   std::vector<std::string> command_line_arguments =
       GetCommandLineArguments();
