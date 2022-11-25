@@ -4,6 +4,7 @@ import 'package:asesoriasitam/utils/functionality.dart';
 import 'package:asesoriasitam/widgets/tappableCard.dart';
 import 'package:asesoriasitam/widgets/userAvatar.dart';
 import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 
 Widget inicioCard() {
