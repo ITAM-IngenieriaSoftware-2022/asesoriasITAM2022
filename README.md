@@ -1,6 +1,6 @@
 # Proyecto Final de Ing. de Software | Equipo Bueno
 
-Proyecto final del equipo "BUENO" para la materia de Ing. de Software Otoño 2022
+Proyecto final del equipo "BUENO" para la materia de Ing. de Software Otoño 2022.
 
 [URL con el proyecto funcionando](https://asesoriasitam.web.app/)
 
