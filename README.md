@@ -8,6 +8,10 @@ Proyecto final del equipo "BUENO" para la materia de Ing. de Software Otoño 202
 
 Aquí el SRS (ya casí está).
 
+## Casos de uso
+
+[Caso de uso : Login](https://github.com/emiliocantuc/proyectoFinalSoftware/blob/main/Casos%20de%20uso%20Login.png)
+
 ## Plan de Calidad
 
 En esta sección explicaremos ciertas características del producto que creemos que seran importantes tanto para los usuarios como para los desarrolladores para mantener la calidad.
