@@ -97,6 +97,18 @@ class GraceScrapper:
         listaClases=[i.replace('</option>','').replace('\n','') for i in html.split("<option>")[1:-1]]  
         return periodo,listaClases
     
+    def _retryExponencialScraping(func, retries=7):
+        def retry_wrapper(*args, **kwargs):
+            attempts = 0
+            while attempts < retries:
+            try:
+                return func(*args, **kwargs)
+            except APIError as e:
+                print('Esperando a que se libere la cuota: ',e)
+                time.sleep(10*(attempts+1))
+                attempts += 1
+        return retry_wrapper
+    
     
     def _getClaseInfo(self,html):
         """
